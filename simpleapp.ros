@@ -1,0 +1,21 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#| <Put a one-line description here>
+exec ros -Q -- $0 "$@"
+|#
+(progn ;;init forms
+  (load #P"simpleapp.asd")
+  (mapc #'require '("sb-cltl2" "sb-concurrency"))
+  (ql:quickload :simpleapp))
+
+(defpackage :ros.script.simpleapp.3680169584
+  (:use :cl))
+(in-package :ros.script.simpleapp.3680169584)
+
+(defun main (&rest argv)
+  (declare (ignorable argv))
+  (simpleapp.impl:init)
+  (simpleapp.impl:serve)
+  (loop while t :do (sleep 1)))
+
+;;; vim: set ft=lisp lisp:
