@@ -6,16 +6,18 @@ exec ros -Q -- $0 "$@"
 (progn ;;init forms
   (load #P"simpleapp.asd")
   (mapc #'require '("sb-cltl2" "sb-concurrency"))
+  (ql:quickload '(:dbd-mysql :clack))
+  (funcall (read-from-string "lack.util:find-middleware") :backtrace)
+  (funcall (read-from-string "clack.util:find-handler") :woo)
   (ql:quickload :simpleapp))
 
-(defpackage :ros.script.simpleapp.3680169584
+(defpackage :ros.script.app.3680186920
   (:use :cl))
-(in-package :ros.script.simpleapp.3680169584)
+(in-package :ros.script.app.3680186920)
 
 (defun main (&rest argv)
   (declare (ignorable argv))
   (simpleapp.impl:init)
   (simpleapp.impl:serve)
   (loop while t :do (sleep 1)))
-
 ;;; vim: set ft=lisp lisp:
